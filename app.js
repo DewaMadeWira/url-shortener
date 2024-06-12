@@ -30,25 +30,25 @@ app.set('view engine', 'ejs');
 // Allow URL Encoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-    '/api-docs',
-    swaggerUI.serve,
-    swaggerUI.setup(swaggerDocs, { customCssUrl: CSS_URL })
-);
+// app.use(
+//     '/api-docs',
+//     swaggerUI.serve,
+//     swaggerUI.setup(swaggerDocs, { customCssUrl: CSS_URL })
+// );
 
 // Static Files for Images
 app.use(express.static('public'));
 
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Returns all URLs
- *     tags: [URLs]
- *     responses:
- *       200:
- *         description: the list of all URLs
- */
+// /**
+//  * @swagger
+//  * /:
+//  *   get:
+//  *     summary: Returns all URLs
+//  *     tags: [URLs]
+//  *     responses:
+//  *       200:
+//  *         description: the list of all URLs
+//  */
 app.get('/', async (req, res) => {
     db.getUrl(req, res);
 });
