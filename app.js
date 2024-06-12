@@ -27,7 +27,7 @@ app.set('view engine', 'ejs');
 // Allow URL Encoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use('api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // Static Files for Images
 app.use(express.static('public'));
