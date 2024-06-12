@@ -1,6 +1,21 @@
 const express = require('express');
 const db = require('./database').default;
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+
+var options = {
+    swaggerDefinition: {
+        info: { title: 'URL Shortener App', version: '1.1.0' },
+    },
+    apis: ['app.js'],
+    swaggerOptions: {
+        validatorUrl: null,
+    },
+};
+
+const swaggerDocs = swaggerJsDoc(options);
+
 const app = express();
 app.use(express.json());
 
@@ -12,9 +27,20 @@ app.set('view engine', 'ejs');
 // Allow URL Encoded
 app.use(express.urlencoded({ extended: true }));
 
+app.use('api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
 // Static Files for Images
 app.use(express.static('public'));
 
+/**
+ * @swagger
+ *  /:
+ *   get:
+ *      description:"get all URLs"
+ *      responses :
+ *          200:
+ *             description : "Success"
+ */
 app.get('/', async (req, res) => {
     db.getUrl(req, res);
 });
