@@ -36,10 +36,10 @@ app.use(express.static('public'));
  * @swagger
  *  /:
  *   get:
- *      description:"get all URLs"
- *      responses :
- *          200:
- *             description : "Success"
+ *    description: get all URLs
+ *    responses :
+ *        200:
+ *          description : Success
  */
 app.get('/', async (req, res) => {
     db.getUrl(req, res);
