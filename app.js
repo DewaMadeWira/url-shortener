@@ -1,7 +1,5 @@
 const express = require('express');
-const db = require('./database');
-
-
+const db = require('./database').default;
 
 const app = express();
 app.use(express.json());
@@ -18,16 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', async (req, res) => {
-    
     db.getUrl(req, res);
 });
 
 app.get('/:shortUrl', async (req, res) => {
-
     db.getShortUrl(req, res);
 });
-
-
 
 app.post('/', async (req, res) => {
     if (req.body.fullUrl.includes('http') == true) {
