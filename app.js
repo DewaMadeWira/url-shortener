@@ -16,6 +16,9 @@ var options = {
 
 const swaggerDocs = swaggerJsDoc(options);
 
+const CSS_URL =
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css';
+
 const app = express();
 app.use(express.json());
 
@@ -27,7 +30,11 @@ app.set('view engine', 'ejs');
 // Allow URL Encoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+app.use(
+    '/api-docs',
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerDocs, { customCssUrl: CSS_URL })
+);
 
 // Static Files for Images
 app.use(express.static('public'));
