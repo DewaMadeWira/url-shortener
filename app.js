@@ -1,31 +1,31 @@
-const express = require('express');
-const db = require('./database').default;
+const express = require("express");
+const db = require("./database.js").default;
 
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
 
 var options = {
-    swaggerDefinition: {
-        info: { title: 'URL Shortener App', version: '1.1.0' },
-    },
-    apis: ['app.js'],
-    swaggerOptions: {
-        validatorUrl: null,
-    },
+  swaggerDefinition: {
+    info: { title: "URL Shortener App", version: "1.1.0" },
+  },
+  apis: ["app.js"],
+  swaggerOptions: {
+    validatorUrl: null,
+  },
 };
 
 const swaggerDocs = swaggerJsDoc(options);
 
 const CSS_URL =
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css';
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
 const app = express();
 app.use(express.json());
 
-var cors = require('cors');
+var cors = require("cors");
 app.use(cors());
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 // Allow URL Encoded
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 // );
 
 // Static Files for Images
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 // /**
 //  * @swagger
@@ -49,22 +49,22 @@ app.use(express.static('public'));
 //  *       200:
 //  *         description: the list of all URLs
 //  */
-app.get('/', async (req, res) => {
-    db.getUrl(req, res);
+app.get("/", async (req, res) => {
+  db.getUrl(req, res);
 });
 
-app.get('/:shortUrl', async (req, res) => {
-    db.getShortUrl(req, res);
+app.get("/:shortUrl", async (req, res) => {
+  db.getShortUrl(req, res);
 });
 
-app.post('/', async (req, res) => {
-    if (req.body.fullUrl.includes('http') == true) {
-        db.postUrl(req, res);
-    } else {
-        res.status(401).json({ message: 'provide valid links !' });
-    }
+app.post("/", async (req, res) => {
+  if (req.body.fullUrl.includes("http") == true) {
+    db.postUrl(req, res);
+  } else {
+    res.status(401).json({ message: "provide valid links !" });
+  }
 });
 
 app.listen(8080, () => {
-    console.log('server is running on port 8080');
+  console.log("server is running on port 8080");
 });
