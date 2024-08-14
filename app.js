@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("./database.js").default;
+const db = require("./database.js");
 
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
